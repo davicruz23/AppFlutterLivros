@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:meuslivrosapp/database/sqlitedatabase.dart';
+import 'package:meuslivrosapp/main.dart';
+import 'package:meuslivrosapp/page_register.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key});
@@ -52,16 +55,43 @@ class _LoginPageState extends State<LoginPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                // ignore: use_build_context_synchronously
                 ElevatedButton(
-                  onPressed: () {
-                    // Adicione a lógica do botão "Entrar" aqui
+                  onPressed: () async {
+                    final validCredenciais = await SQLiteDatabase()
+                        .verificarCredenciais(username, password);
+                    if (validCredenciais) {
+                      // Credenciais válidas, redirecione para a página principal.
+                      // ignore: use_build_context_synchronously
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              MyHomePage(title: 'Página Principal'),
+                        ),
+                      );
+                    } else {
+                      // Credenciais inválidas, você pode exibir uma mensagem de erro.
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('Nome de usuário ou senha incorretos'),
+                        ),
+                      );
+                    }
                   },
-                  child: Text('Entrar'), // Coloque o texto do botão aqui
+                  child: Text('Entrar'),
                 ),
+
                 SizedBox(width: 16.0), // Espaço entre os botões
                 ElevatedButton(
                   onPressed: () {
-                    // Adicione a lógica do botão "Registrar" aqui
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => RegisterPage(
+                        ),
+                      ),
+                    );
                   },
                   child: Text('Registrar'), // Coloque o texto do botão aqui
                 ),

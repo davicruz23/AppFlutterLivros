@@ -20,7 +20,7 @@ class SQLiteDatabase {
 
     _database = await openDatabase(
       path,
-      version: 1,
+      version: 2,
       onCreate: (Database db, int version) async {
         await db.execute('''
           CREATE TABLE livros (
@@ -56,5 +56,16 @@ class SQLiteDatabase {
         nota: maps[index]['nota'],
       );
     });
+  }
+
+  Future<bool> verificarCredenciais(String username, String password) async {
+    final db = await database;
+    final result = await db!.query(
+      'cadastro',
+      where: 'username = ? AND password = ?',
+      whereArgs: [username, password],
+    );
+
+  return result.isNotEmpty;
   }
 }
