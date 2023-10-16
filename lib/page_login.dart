@@ -26,8 +26,13 @@ class _LoginPageState extends State<LoginPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Container(
+              width: 200,
+              height: 200,
+              child: Image.asset('assets/livro.avif'),
+            ),
             SizedBox(
-              height: 12,
+              height: 50,
             ),
             TextField(
               onChanged: (text) {
@@ -88,8 +93,8 @@ class _LoginPageState extends State<LoginPage> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => RegisterPage(
-                        ),
+                        builder: (context) =>
+                            RegisterPage(sqLiteDatabase: SQLiteDatabase()),
                       ),
                     );
                   },

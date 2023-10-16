@@ -34,6 +34,8 @@ class SQLiteDatabase {
         await db.execute('''
           CREATE TABLE cadastro (
             id INTEGER PRIMARY KEY,
+            nome TEXT,
+            email TEXT,
             username TEXT,
             password TEXT
           )

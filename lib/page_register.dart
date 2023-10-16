@@ -1,20 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:meuslivrosapp/database/sqlitedatabase.dart';
+import 'package:meuslivrosapp/models/Cadastro.dart';
 
 class RegisterPage extends StatefulWidget {
-  const RegisterPage({Key? key});
+  final SQLiteDatabase sqLiteDatabase;
+
+  RegisterPage({required this.sqLiteDatabase});
 
   @override
-  State<RegisterPage> createState() => _RegisterPageState();
+  _RegisterPageState createState() => _RegisterPageState();
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-  String nome = '';
-  String email = '';
-  String username = '';
-  String password = '';
+  final double fontSize = 18.0;
 
   @override
   Widget build(BuildContext context) {
+    String nome = ''; // Inicialize as variáveis aqui
+    String email = '';
+    String username = '';
+    String password = '';
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Registro', style: TextStyle(color: Colors.white)),
@@ -31,7 +37,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
                 TextField(
                   onChanged: (text) {
-                    print(text);
+                    nome = text; // Atualize as variáveis aqui
                   },
                   keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
@@ -44,7 +50,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
                 TextField(
                   onChanged: (text) {
-                    print(text);
+                    email = text; // Atualize as variáveis aqui
                   },
                   keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
@@ -52,9 +58,12 @@ class _RegisterPageState extends State<RegisterPage> {
                     border: OutlineInputBorder(),
                   ),
                 ),
+                SizedBox(
+                  height: 12,
+                ),
                 TextField(
                   onChanged: (text) {
-                    print(text);
+                    username = text; // Atualize as variáveis aqui
                   },
                   keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
@@ -62,9 +71,12 @@ class _RegisterPageState extends State<RegisterPage> {
                     border: OutlineInputBorder(),
                   ),
                 ),
+                SizedBox(
+                  height: 12,
+                ),
                 TextField(
                   onChanged: (text) {
-                    print(text);
+                    password = text; // Atualize as variáveis aqui
                   },
                   obscureText: true,
                   decoration: InputDecoration(
@@ -72,11 +84,59 @@ class _RegisterPageState extends State<RegisterPage> {
                     border: OutlineInputBorder(),
                   ),
                 ),
+                SizedBox(
+                  height: 20,
+                ),
                 ElevatedButton(
-                  onPressed: () {
-                    // Lógica para registrar o usuário
+                  onPressed: () async {
+                    if (nome != null &&
+                        email != null &&
+                        username != null &&
+                        password != null) {
+                      Cadastro novoCadastro = Cadastro(
+                        nome: nome!,
+                        email: email!,
+                        username: username!,
+                        password: password!,
+                      );
+
+                      try {
+                        final db = await widget.sqLiteDatabase.database;
+                        await db?.insert(
+                          'cadastro',
+                          novoCadastro.toMap(),
+                        );
+
+                        // Exiba um SnackBar informando que o livro foi salvo com sucesso
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text('Cadastro realizado com sucesso.'),
+                          ),
+                        );
+
+                        // Aguarde por um curto período antes de voltar para a tela principal
+                        await Future.delayed(Duration(seconds: 1));
+
+                        // Redirecione para a tela principal
+                        Navigator.pop(context);
+                      } catch (e) {
+                        print('Falha ao cadastrar: $e');
+                      }
+                    } else {
+                      print('');
+                    }
                   },
-                  child: Text('Registrar'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color.fromARGB(
+                        255, 88, 1, 104), // Cor de fundo roxa
+                  ),
+                  child: Text(
+                    'Cadastrar',
+                    style: TextStyle(
+                      color: Colors.white, // Cor do texto branco
+                      fontSize: fontSize,
+                    ),
+                  ),
                 ),
               ],
             ),
