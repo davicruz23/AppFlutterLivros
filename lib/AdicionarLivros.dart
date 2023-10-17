@@ -6,7 +6,7 @@ import 'package:meuslivrosapp/models/Livro.dart';
 class AdicionarLivros extends StatefulWidget {
   final SQLiteDatabase sqliteDatabase;
 
-  AdicionarLivros({required this.sqliteDatabase});
+  const AdicionarLivros({super.key, required this.sqliteDatabase});
 
   @override
   _AdicionarLivrosState createState() => _AdicionarLivrosState();
@@ -25,7 +25,7 @@ class _AdicionarLivrosState extends State<AdicionarLivros> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Adicionar Livros'),
+        title: const Text('Adicionar Livros'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -73,8 +73,8 @@ class _AdicionarLivrosState extends State<AdicionarLivros> {
                   direction: Axis.horizontal,
                   allowHalfRating: false,
                   itemCount: 5,
-                  itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
-                  itemBuilder: (context, _) => Icon(
+                  itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
+                  itemBuilder: (context, _) => const Icon(
                     Icons.star,
                     color: Colors.amber,
                   ),
@@ -84,7 +84,7 @@ class _AdicionarLivrosState extends State<AdicionarLivros> {
                 ),
               ],
             ),
-            SizedBox(height: 16.0),
+            const SizedBox(height: 16.0),
             ElevatedButton(
               onPressed: () async {
                 if (nome != null &&
@@ -112,13 +112,13 @@ class _AdicionarLivrosState extends State<AdicionarLivros> {
 
                     // Exiba um SnackBar informando que o livro foi salvo com sucesso
                     ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
+                      const SnackBar(
                         content: Text('Livro adicionado com sucesso.'),
                       ),
                     );
 
                     // Aguarde por um curto período antes de voltar para a tela principal
-                    await Future.delayed(Duration(seconds: 1));
+                    await Future.delayed(const Duration(seconds: 1));
 
                     // Redirecione para a tela principal
                     Navigator.pop(context);

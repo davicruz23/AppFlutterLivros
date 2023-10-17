@@ -6,10 +6,12 @@ import 'package:meuslivrosapp/page_login.dart';
 
 
 void main() {
-  runApp(MyApp());  
+  runApp(const MyApp());  
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -31,7 +33,7 @@ class MyApp extends StatelessWidget {
  class MyHomePage extends StatelessWidget {
   final String title;
 
-  const MyHomePage({required this.title});
+  const MyHomePage({super.key, required this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +45,7 @@ class MyApp extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Container(
+            SizedBox(
               width: 500,
               height: 400,
               child: Image.asset('assets/livro.avif'),

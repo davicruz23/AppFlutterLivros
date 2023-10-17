@@ -4,7 +4,7 @@ import 'package:meuslivrosapp/database/sqlitedatabase.dart';
 class DataViewerScreen extends StatefulWidget {
   final SQLiteDatabase sqLiteDatabase;
 
-  DataViewerScreen({required this.sqLiteDatabase});
+  const DataViewerScreen({super.key, required this.sqLiteDatabase});
 
   @override
   _DataViewerScreenState createState() => _DataViewerScreenState();
@@ -34,7 +34,7 @@ class _DataViewerScreenState extends State<DataViewerScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Visualizar Dados'),
+        title: const Text('Visualizar Dados'),
       ),
       body: ListView.builder(
         itemCount: _data.length,

@@ -5,7 +5,7 @@ import 'package:meuslivrosapp/models/Cadastro.dart';
 class RegisterPage extends StatefulWidget {
   final SQLiteDatabase sqLiteDatabase;
 
-  RegisterPage({required this.sqLiteDatabase});
+  const RegisterPage({super.key, required this.sqLiteDatabase});
 
   @override
   _RegisterPageState createState() => _RegisterPageState();
@@ -23,7 +23,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Registro', style: TextStyle(color: Colors.white)),
+        title: const Text('Registro', style: TextStyle(color: Colors.white)),
       ),
       body: Center(
         child: SizedBox(
@@ -32,7 +32,7 @@ class _RegisterPageState extends State<RegisterPage> {
             padding: const EdgeInsets.all(16.0),
             child: ListView(
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 12,
                 ),
                 TextField(
@@ -40,12 +40,12 @@ class _RegisterPageState extends State<RegisterPage> {
                     nome = text; // Atualize as variáveis aqui
                   },
                   keyboardType: TextInputType.emailAddress,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: 'Nome',
                     border: OutlineInputBorder(),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 12,
                 ),
                 TextField(
@@ -53,12 +53,12 @@ class _RegisterPageState extends State<RegisterPage> {
                     email = text; // Atualize as variáveis aqui
                   },
                   keyboardType: TextInputType.emailAddress,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: 'Email',
                     border: OutlineInputBorder(),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 12,
                 ),
                 TextField(
@@ -66,12 +66,12 @@ class _RegisterPageState extends State<RegisterPage> {
                     username = text; // Atualize as variáveis aqui
                   },
                   keyboardType: TextInputType.emailAddress,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: 'Usuário',
                     border: OutlineInputBorder(),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 12,
                 ),
                 TextField(
@@ -79,25 +79,22 @@ class _RegisterPageState extends State<RegisterPage> {
                     password = text; // Atualize as variáveis aqui
                   },
                   obscureText: true,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: 'Senha',
                     border: OutlineInputBorder(),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 ElevatedButton(
                   onPressed: () async {
-                    if (nome != null &&
-                        email != null &&
-                        username != null &&
-                        password != null) {
+                    if (email != null) {
                       Cadastro novoCadastro = Cadastro(
-                        nome: nome!,
-                        email: email!,
-                        username: username!,
-                        password: password!,
+                        nome: nome,
+                        email: email,
+                        username: username,
+                        password: password,
                       );
 
                       try {
@@ -109,13 +106,13 @@ class _RegisterPageState extends State<RegisterPage> {
 
                         // Exiba um SnackBar informando que o livro foi salvo com sucesso
                         ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
+                          const SnackBar(
                             content: Text('Cadastro realizado com sucesso.'),
                           ),
                         );
 
                         // Aguarde por um curto período antes de voltar para a tela principal
-                        await Future.delayed(Duration(seconds: 1));
+                        await Future.delayed(const Duration(seconds: 1));
 
                         // Redirecione para a tela principal
                         Navigator.pop(context);

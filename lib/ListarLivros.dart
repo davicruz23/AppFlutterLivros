@@ -5,7 +5,7 @@ import 'package:meuslivrosapp/models/Livro.dart';
 class ListarLivros extends StatefulWidget {
   final SQLiteDatabase sqliteDatabase;
 
-  ListarLivros({required this.sqliteDatabase});
+  const ListarLivros({super.key, required this.sqliteDatabase});
 
   @override
   _ListarLivrosState createState() => _ListarLivrosState();
@@ -18,17 +18,17 @@ class _ListarLivrosState extends State<ListarLivros> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Listar Livros'),
+        title: const Text('Listar Livros'),
       ),
       body: FutureBuilder<List<Livro>>(
         future: widget.sqliteDatabase.getAllLivros(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
-            return Center(child: Text('Erro ao carregar os livros'));
+            return const Center(child: Text('Erro ao carregar os livros'));
           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return Center(child: Text('Nenhum livro encontrado'));
+            return const Center(child: Text('Nenhum livro encontrado'));
           } else {
             List<Livro> livros = snapshot.data!;
             if (currentPage < 0) currentPage = 0;
@@ -52,16 +52,16 @@ class _ListarLivrosState extends State<ListarLivros> {
                           currentPage--;
                         });
                       },
-                      child: Text('Anterior'),
+                      child: const Text('Anterior'),
                     ),
-                    SizedBox(width: 20),
+                    const SizedBox(width: 20),
                     ElevatedButton(
                       onPressed: () {
                         setState(() {
                           currentPage++;
                         });
                       },
-                      child: Text('Próximo'),
+                      child: const Text('Próximo'),
                     ),
                   ],
                 ),

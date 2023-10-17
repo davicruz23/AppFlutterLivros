@@ -4,7 +4,7 @@ import 'package:meuslivrosapp/main.dart';
 import 'package:meuslivrosapp/page_register.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key});
+  const LoginPage({super.key});
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -20,18 +20,18 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Login', style: TextStyle(color: Colors.white)),
+        title: const Text('Login', style: TextStyle(color: Colors.white)),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(
+            SizedBox(
               width: 200,
               height: 200,
               child: Image.asset('assets/livro.avif'),
             ),
-            SizedBox(
+            const SizedBox(
               height: 50,
             ),
             TextField(
@@ -39,22 +39,22 @@ class _LoginPageState extends State<LoginPage> {
                 print(text);
               },
               keyboardType: TextInputType.emailAddress,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Usuário',
                 border: OutlineInputBorder(),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 12,
             ),
-            TextField(
+            const TextField(
               obscureText: true,
               decoration: InputDecoration(
                 labelText: 'Senha',
                 border: OutlineInputBorder(),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 30.0,
             ),
             Row(
@@ -72,22 +72,22 @@ class _LoginPageState extends State<LoginPage> {
                         context,
                         MaterialPageRoute(
                           builder: (context) =>
-                              MyHomePage(title: 'Página Principal'),
+                              const MyHomePage(title: 'Página Principal'),
                         ),
                       );
                     } else {
                       // Credenciais inválidas, você pode exibir uma mensagem de erro.
                       ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
+                        const SnackBar(
                           content: Text('Nome de usuário ou senha incorretos'),
                         ),
                       );
                     }
                   },
-                  child: Text('Entrar'),
+                  child: const Text('Entrar'),
                 ),
 
-                SizedBox(width: 16.0), // Espaço entre os botões
+                const SizedBox(width: 16.0), // Espaço entre os botões
                 ElevatedButton(
                   onPressed: () {
                     Navigator.push(
@@ -98,7 +98,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     );
                   },
-                  child: Text('Registrar'), // Coloque o texto do botão aqui
+                  child: const Text('Registrar'), // Coloque o texto do botão aqui
                 ),
               ],
             ),
