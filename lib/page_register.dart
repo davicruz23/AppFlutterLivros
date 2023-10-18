@@ -5,7 +5,8 @@ import 'package:meuslivrosapp/models/Cadastro.dart';
 class RegisterPage extends StatefulWidget {
   final SQLiteDatabase sqLiteDatabase;
 
-  const RegisterPage({super.key, required this.sqLiteDatabase});
+  const RegisterPage({Key? key, required this.sqLiteDatabase})
+      : super(key: key);
 
   @override
   _RegisterPageState createState() => _RegisterPageState();
@@ -14,16 +15,19 @@ class RegisterPage extends StatefulWidget {
 class _RegisterPageState extends State<RegisterPage> {
   final double fontSize = 18.0;
 
+  String nome = '';
+  String email = '';
+  String username = '';
+  String password = '';
+
   @override
   Widget build(BuildContext context) {
-    String nome = ''; // Inicialize as variáveis aqui
-    String email = '';
-    String username = '';
-    String password = '';
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Registro', style: TextStyle(color: Colors.white)),
+        iconTheme: const IconThemeData(
+          color: Colors.white,
+        ),
       ),
       body: Center(
         child: SizedBox(
@@ -37,7 +41,9 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
                 TextField(
                   onChanged: (text) {
-                    nome = text; // Atualize as variáveis aqui
+                    setState(() {
+                      nome = text;
+                    });
                   },
                   keyboardType: TextInputType.emailAddress,
                   decoration: const InputDecoration(
@@ -50,7 +56,9 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
                 TextField(
                   onChanged: (text) {
-                    email = text; // Atualize as variáveis aqui
+                    setState(() {
+                      email = text;
+                    });
                   },
                   keyboardType: TextInputType.emailAddress,
                   decoration: const InputDecoration(
@@ -63,7 +71,9 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
                 TextField(
                   onChanged: (text) {
-                    username = text; // Atualize as variáveis aqui
+                    setState(() {
+                      username = text;
+                    });
                   },
                   keyboardType: TextInputType.emailAddress,
                   decoration: const InputDecoration(
@@ -76,7 +86,9 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
                 TextField(
                   onChanged: (text) {
-                    password = text; // Atualize as variáveis aqui
+                    setState(() {
+                      password = text;
+                    });
                   },
                   obscureText: true,
                   decoration: const InputDecoration(
@@ -89,7 +101,10 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
                 ElevatedButton(
                   onPressed: () async {
-                    if (email != null) {
+                    if (nome.isNotEmpty &&
+                        email.isNotEmpty &&
+                        username.isNotEmpty &&
+                        password.isNotEmpty) {
                       Cadastro novoCadastro = Cadastro(
                         nome: nome,
                         email: email,
@@ -104,7 +119,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           novoCadastro.toMap(),
                         );
 
-                        // Exiba um SnackBar informando que o livro foi salvo com sucesso
+                        // Exiba um SnackBar informando que o cadastro foi realizado com sucesso
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
                             content: Text('Cadastro realizado com sucesso.'),
@@ -120,7 +135,12 @@ class _RegisterPageState extends State<RegisterPage> {
                         print('Falha ao cadastrar: $e');
                       }
                     } else {
-                      print('');
+                      // Exiba uma mensagem de erro se algum campo estiver vazio
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Preencha todos os campos.'),
+                        ),
+                      );
                     }
                   },
                   style: ElevatedButton.styleFrom(

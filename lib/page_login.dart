@@ -11,8 +11,6 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  String nome = '';
-  String email = '';
   String username = '';
   String password = '';
 
@@ -36,7 +34,7 @@ class _LoginPageState extends State<LoginPage> {
             ),
             TextField(
               onChanged: (text) {
-                print(text);
+                username = text;
               },
               keyboardType: TextInputType.emailAddress,
               decoration: const InputDecoration(
@@ -47,7 +45,10 @@ class _LoginPageState extends State<LoginPage> {
             const SizedBox(
               height: 12,
             ),
-            const TextField(
+            TextField(
+              onChanged: (text) {
+                password = text;
+              },
               obscureText: true,
               decoration: InputDecoration(
                 labelText: 'Senha',
@@ -60,34 +61,38 @@ class _LoginPageState extends State<LoginPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // ignore: use_build_context_synchronously
                 ElevatedButton(
                   onPressed: () async {
-                    final validCredenciais = await SQLiteDatabase()
-                        .verificarCredenciais(username, password);
-                    if (validCredenciais) {
-                      // Credenciais válidas, redirecione para a página principal.
-                      // ignore: use_build_context_synchronously
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              const MyHomePage(title: 'Página Principal'),
-                        ),
-                      );
+                    if (username.isNotEmpty && password.isNotEmpty) {
+                      final validCredentials = await SQLiteDatabase()
+                          .verificarCredenciais(username, password);
+                      if (validCredentials) {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                const MyHomePage(title: 'Página Principal'),
+                          ),
+                        );
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content:
+                                Text('Nome de usuário ou senha incorretos'),
+                          ),
+                        );
+                      }
                     } else {
-                      // Credenciais inválidas, você pode exibir uma mensagem de erro.
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
-                          content: Text('Nome de usuário ou senha incorretos'),
+                          content: Text('Preencha todos os campos.'),
                         ),
                       );
                     }
                   },
                   child: const Text('Entrar'),
                 ),
-
-                const SizedBox(width: 16.0), // Espaço entre os botões
+                const SizedBox(width: 16.0),
                 ElevatedButton(
                   onPressed: () {
                     Navigator.push(
@@ -98,7 +103,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     );
                   },
-                  child: const Text('Registrar'), // Coloque o texto do botão aqui
+                  child: const Text('Registrar'),
                 ),
               ],
             ),

@@ -4,9 +4,8 @@ import 'package:meuslivrosapp/ListarLivros.dart';
 import 'package:meuslivrosapp/database/sqlitedatabase.dart';
 import 'package:meuslivrosapp/page_login.dart';
 
-
 void main() {
-  runApp(const MyApp());  
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -18,7 +17,7 @@ class MyApp extends StatelessWidget {
       title: 'Meus Livros',
       theme: ThemeData(
         appBarTheme: const AppBarTheme(
-          color:  Color.fromARGB(
+          color: Color.fromARGB(
               255, 88, 1, 104), // Cor roxa para o fundo do AppBar
         ),
         colorScheme: ColorScheme.fromSeed(
@@ -30,7 +29,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
- class MyHomePage extends StatelessWidget {
+class MyHomePage extends StatelessWidget {
   final String title;
 
   const MyHomePage({super.key, required this.title});
@@ -39,16 +38,39 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(title),
+        title: Text('Pagina Pincipal', style: TextStyle(color: Colors.white)),
+        actions: [
+          TextButton(
+            onPressed: () {
+              // Navegar de volta para a página de login
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => LoginPage(),
+                ),
+              );
+            },
+            child: Text(
+              'Logout',
+              style: TextStyle(
+                color: Colors.white,
+              ),
+            ),
+          ),
+        ],
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            SizedBox(
-              width: 500,
-              height: 400,
-              child: Image.asset('assets/livro.avif'),
+            Align(
+              alignment: Alignment
+                  .center, // Isso alinha a imagem no topo do espaço disponível.
+              child: SizedBox(
+                width: 350,
+                height: 350,
+                child: Image.asset('assets/livro.avif'),
+              ),
             ),
             ElevatedButton(
               onPressed: () {
@@ -72,7 +94,9 @@ class MyApp extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(height: 20.0,),
+            const SizedBox(
+              height: 20.0,
+            ),
             ElevatedButton(
               onPressed: () {
                 Navigator.push(
@@ -85,7 +109,8 @@ class MyApp extends StatelessWidget {
                 );
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color.fromARGB(255, 88, 1, 104), // Cor de fundo roxa
+                backgroundColor:
+                    const Color.fromARGB(255, 88, 1, 104), // Cor de fundo roxa
               ),
               child: const Text(
                 'Listar Livros',
@@ -93,7 +118,6 @@ class MyApp extends StatelessWidget {
                   color: Colors.white, // Cor do texto branca
                 ),
               ),
-
             ),
           ],
         ),

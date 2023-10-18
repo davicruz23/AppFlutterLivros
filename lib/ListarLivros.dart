@@ -18,7 +18,10 @@ class _ListarLivrosState extends State<ListarLivros> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Listar Livros'),
+        title: Text('Listar Livros', style: TextStyle(color: Colors.white)),
+        iconTheme: IconThemeData(
+          color: Colors.white,
+        ),
       ),
       body: FutureBuilder<List<Livro>>(
         future: widget.sqliteDatabase.getAllLivros(),

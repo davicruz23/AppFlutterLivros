@@ -25,7 +25,10 @@ class _AdicionarLivrosState extends State<AdicionarLivros> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Adicionar Livros'),
+        title: Text('Adicionar Livros', style: TextStyle(color: Colors.white)),
+        iconTheme: IconThemeData(
+          color: Colors.white,  
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
